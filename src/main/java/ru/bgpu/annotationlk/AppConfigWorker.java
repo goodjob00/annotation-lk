@@ -1,13 +1,14 @@
 package ru.bgpu.annotationlk;
 
 import org.reflections.Reflections;
-import org.reflections.scanners.FieldAnnotationsScanner;
+import org.reflections.scanners.Scanners;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +18,7 @@ public class AppConfigWorker {
 
     public static void configProcessing(String prefix, String filePropName) {
 
-        Reflections reflections = new Reflections(prefix, new FieldAnnotationsScanner());
+        Reflections reflections = new Reflections(prefix, Scanners.FieldsAnnotated);
 
         File prop = new File(filePropName);
         if (prop.isFile()) {
@@ -51,7 +52,7 @@ public class AppConfigWorker {
                                 );
                             }
 
-//                            System.out.println(field.getName());
+                            System.out.println(field.getName());
                         }
                 );
             } catch (Exception e) {
